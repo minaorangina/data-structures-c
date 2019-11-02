@@ -10,8 +10,70 @@ struct node
 
 struct node *head;
 
-void value_at()
+void value_n_from_end()
 {
+  if (head == NULL)
+  {
+    printf("List is empty.");
+  }
+  else
+  {
+    int index_from_end;
+    printf("\n\n\tEnter index from end:");
+    scanf("%d", &index_from_end);
+
+    int index_from_front = size() - 1 - index_from_end;
+    
+    // value_at
+
+    if (index_from_front >= 0 && index_from_front <= size())
+    {
+      struct node *temp;
+      temp = head;
+      for (int i = 0; i < index_from_front; i++)
+      {
+        temp = temp->next;
+      }
+      printf("%d", temp->data);
+    }
+    else
+    {
+      printf("Index %d out of range", index_from_front);
+    }
+  }
+}
+
+void back()
+{
+  if (head == NULL)
+  {
+    printf("List is empty.");
+  }
+  else
+  {
+    struct node *temp = head;
+    while (temp->next != NULL)
+    {
+      temp = temp->next;
+    }
+    printf("%d", temp->data);
+  }
+}
+
+void front()
+{
+  if (head == NULL)
+  {
+    printf("List is empty.");
+  }
+  else
+  {
+    printf("%d", head->data);
+  }
+}
+
+void value_at()
+{ 
   if (head == NULL) 
   {
     printf("List is empty.");
@@ -22,7 +84,7 @@ void value_at()
     printf("\n\n\t Enter index: ");
     scanf("%d", &index);
 
-    if (index <= size())
+    if (index >= 0 && index <= size())
     {
       struct node *temp;
       temp = head;
@@ -135,7 +197,10 @@ int main()
     printf("\n\n 4. Display size of linked list");
     printf("\n\n 5. Is linked list empty?");
     printf("\n\n 6. Get value at index");
-    printf("\n\n 7. Exit");
+    printf("\n\n 7. Get first value");
+    printf("\n\n 8. Get last value");
+    printf("\n\n 9. Get value n from the end");
+    printf("\n\n 10. Exit");
     printf("\n\n Enter your choice: ");
     scanf("%d", &choice);
 
@@ -160,10 +225,19 @@ int main()
       value_at();
       break;
     case 7:
+      front();
+      break;
+    case 8:
+      back();
+      break;
+    case 9:
+      value_n_from_end();
+      break;
+    case 10:
       break;
     default:
       printf("Invalid selection - try again.\n");
     }
-  } while (choice != 7);
+  } while (choice != 10);
   
 }
