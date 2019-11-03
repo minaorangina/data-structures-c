@@ -45,6 +45,38 @@ void reverse()
   }
 }
 
+void delete()
+{
+  if (head == NULL)
+  {
+    printf("List is empty\n");
+  }
+  else
+  {
+    struct node *index, *temp, *toBeFreed;
+    do
+    {
+      printf("\n\n\tEnter chosen index: ");
+      scanf("%d", &index);
+    } while (index < 0 || index > size());
+
+    temp = head;
+    int condition = index - 1;
+    for (int i = 0; i < condition; i++)
+    {
+      printf("i is %d, index is %d, condition is %d\n", i, index, condition);
+      temp = temp->next;
+    }
+
+    toBeFreed = temp->next;
+    printf("to be deleted: %d @ index", toBeFreed->data);
+    temp->next = temp->next->next;
+    toBeFreed->next = NULL;
+    free(toBeFreed);
+  }
+  
+}
+
 void insert()
 {
   int index, entry;
@@ -359,8 +391,9 @@ int main()
     printf("\n\n 12. Push value to back");
     printf("\n\n 13. Pop value from back");
     printf("\n\n 14. Insert");
-    printf("\n\n 15. Reverse");
-    printf("\n\n 16. Exit");
+    printf("\n\n 15. Delete");
+    printf("\n\n 16. Reverse");
+    printf("\n\n 17. Exit");
     printf("\n\n Enter your choice: ");
     scanf("%d", &choice);
 
@@ -409,12 +442,15 @@ int main()
       insert();
       break;
     case 15:
-      reverse();
+      delete();
+      break;
     case 16:
+      reverse();
+    case 17:
       break;
     default:
       printf("Invalid selection - try again.\n");
     }
-  } while (choice != 16);
+  } while (choice != 17);
   
 }
