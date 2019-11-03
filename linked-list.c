@@ -10,6 +10,36 @@ struct node
 
 struct node *head;
 
+void push_back() {
+  if (head == NULL)
+  {
+    printf("List is empty.");
+  }
+  else
+  {
+    struct node *newnode, *temp;
+
+    temp = head;
+    newnode = (struct node *)malloc(sizeof(struct node)); // creates a new node
+
+    printf("\n\n\t Enter data into the linked list: ");
+    scanf("%d", &newnode->data); // assign value to newnode->data
+    while (temp->next != NULL)
+    {
+      temp = temp->next;
+    }
+    temp->next = newnode;
+  }
+}
+
+void pop_front()
+{
+  struct node *temp;
+  temp = head;
+  head = head->next;
+  free(temp);
+}
+
 void push_front()
 {
   // create new node
@@ -220,7 +250,9 @@ int main()
     printf("\n\n 8. Get last value");
     printf("\n\n 9. Get value n from the end");
     printf("\n\n 10. Push value to front");
-    printf("\n\n 11. Exit");
+    printf("\n\n 11. Pop value from front");
+    printf("\n\n 12. Push value to back");
+    printf("\n\n 13. Exit");
     printf("\n\n Enter your choice: ");
     scanf("%d", &choice);
 
@@ -257,10 +289,16 @@ int main()
       push_front();
       break;
     case 11:
+      pop_front();
+      break;
+    case 12:
+      push_back();
+      break;
+    case 13:
       break;
     default:
       printf("Invalid selection - try again.\n");
     }
-  } while (choice != 11);
+  } while (choice != 13);
   
 }
