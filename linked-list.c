@@ -15,6 +15,10 @@ void pop_back() {
   {
     printf("List is empty.");
   }
+  else if (size() == 1)
+  {
+    printf("Cannot pop back on a list of length 1");
+  }
   else
   {
     struct node *temp = head;
