@@ -10,6 +10,26 @@ struct node
 
 struct node *head;
 
+void pop_back() {
+  if (head == NULL)
+  {
+    printf("List is empty.");
+  }
+  else
+  {
+    struct node *temp = head;
+    struct node *toBeFreed;
+
+    while (temp->next != NULL && temp->next->next != NULL)
+    {
+      temp = temp->next;
+    }
+    toBeFreed = temp->next->next;
+    temp->next = NULL;
+    free(toBeFreed);
+  }
+}
+
 void push_back() {
   if (head == NULL)
   {
@@ -252,7 +272,8 @@ int main()
     printf("\n\n 10. Push value to front");
     printf("\n\n 11. Pop value from front");
     printf("\n\n 12. Push value to back");
-    printf("\n\n 13. Exit");
+    printf("\n\n 13. Pop value from back");
+    printf("\n\n 14. Exit");
     printf("\n\n Enter your choice: ");
     scanf("%d", &choice);
 
@@ -295,10 +316,13 @@ int main()
       push_back();
       break;
     case 13:
+      pop_back();
+      break;
+    case 14:
       break;
     default:
       printf("Invalid selection - try again.\n");
     }
-  } while (choice != 13);
+  } while (choice != 14);
   
 }
