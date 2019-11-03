@@ -10,6 +10,25 @@ struct node
 
 struct node *head;
 
+void push_front()
+{
+  // create new node
+  // copy head into temp
+  // point new node at temp
+  // point head at new node
+  struct node *newnode, *temp;
+  newnode = (struct node *)malloc(sizeof(struct node)); // creates a new node
+
+  printf("\n\n\t Enter data into the linked list: ");
+  scanf("%d", &newnode->data); // assign value to newnode->data
+
+  // newnode->next = NULL; // no next node yet
+
+  temp = head;
+  newnode->next = temp;
+  head = newnode;
+}
+
 void value_n_from_end()
 {
   if (head == NULL)
@@ -200,7 +219,8 @@ int main()
     printf("\n\n 7. Get first value");
     printf("\n\n 8. Get last value");
     printf("\n\n 9. Get value n from the end");
-    printf("\n\n 10. Exit");
+    printf("\n\n 10. Push value to front");
+    printf("\n\n 11. Exit");
     printf("\n\n Enter your choice: ");
     scanf("%d", &choice);
 
@@ -234,10 +254,13 @@ int main()
       value_n_from_end();
       break;
     case 10:
+      push_front();
+      break;
+    case 11:
       break;
     default:
       printf("Invalid selection - try again.\n");
     }
-  } while (choice != 10);
+  } while (choice != 11);
   
 }
