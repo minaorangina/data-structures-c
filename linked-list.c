@@ -12,6 +12,39 @@ struct node *head;
 
 void push_front();
 
+void reverse()
+{
+  if (head == NULL)
+  {
+    printf("List is empty\n");
+  }
+  else if (size() == 1)
+  {
+    return;
+  }
+  else
+  {
+    struct node *cursor, *currentNode, *nextNode;
+
+    cursor = head;
+    currentNode = head;
+    nextNode = currentNode->next;
+
+    do
+    {
+      currentNode = nextNode;
+      nextNode = nextNode->next;
+      currentNode->next = cursor;
+      cursor = currentNode;
+    }
+    while (nextNode->next != NULL); // do while?
+
+    nextNode->next = currentNode;
+    head->next = NULL;
+    head = nextNode;
+  }
+}
+
 void insert()
 {
   int index, entry;
@@ -326,7 +359,8 @@ int main()
     printf("\n\n 12. Push value to back");
     printf("\n\n 13. Pop value from back");
     printf("\n\n 14. Insert");
-    printf("\n\n 15. Exit");
+    printf("\n\n 15. Reverse");
+    printf("\n\n 16. Exit");
     printf("\n\n Enter your choice: ");
     scanf("%d", &choice);
 
@@ -375,10 +409,12 @@ int main()
       insert();
       break;
     case 15:
+      reverse();
+    case 16:
       break;
     default:
       printf("Invalid selection - try again.\n");
     }
-  } while (choice != 15);
+  } while (choice != 16);
   
 }
