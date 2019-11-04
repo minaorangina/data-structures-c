@@ -11,6 +11,7 @@ struct node
 struct node *head;
 
 void push_front();
+void pop_front();
 
 void reverse()
 {
@@ -53,23 +54,31 @@ void delete()
   }
   else
   {
-    struct node *temp, *toBeFreed;
     int index;
     do
     {
-      printf("\n\n\tEnter chosen index: ");
+      printf("\n\n\tEnter chosen index to delete: ");
       scanf("%d", &index);
     } while (index < 0 || index > size());
 
-    temp = head;
-    for (int i = 0; i < index - 1; i++)
+    if (index == 0)
     {
-      temp = temp->next;
+      pop_front();
     }
-    toBeFreed = temp->next;
-    temp->next = temp->next->next;
-    toBeFreed->next = NULL;
-    free(toBeFreed);
+    else
+    {
+      struct node *temp, *toBeFreed;
+      temp = head;
+
+      for (int i = 0; i < index - 1; i++)
+      {
+        temp = temp->next;
+      }
+      toBeFreed = temp->next;
+      temp->next = temp->next->next;
+      toBeFreed->next = NULL;
+      free(toBeFreed);
+    }
   }
 }
 
