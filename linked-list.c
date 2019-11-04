@@ -53,7 +53,8 @@ void delete()
   }
   else
   {
-    struct node *index, *temp, *toBeFreed;
+    struct node *temp, *toBeFreed;
+    int index;
     do
     {
       printf("\n\n\tEnter chosen index: ");
@@ -61,20 +62,15 @@ void delete()
     } while (index < 0 || index > size());
 
     temp = head;
-    int condition = index - 1;
-    for (int i = 0; i < condition; i++)
+    for (int i = 0; i < index - 1; i++)
     {
-      printf("i is %d, index is %d, condition is %d\n", i, index, condition);
       temp = temp->next;
     }
-
     toBeFreed = temp->next;
-    printf("to be deleted: %d @ index", toBeFreed->data);
     temp->next = temp->next->next;
     toBeFreed->next = NULL;
     free(toBeFreed);
   }
-  
 }
 
 void insert()
