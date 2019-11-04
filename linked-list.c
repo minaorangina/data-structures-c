@@ -95,7 +95,7 @@ void insert()
   {
     do
     {
-      printf("\n\n\tEnter chosen index: ");
+      printf("\n\n\tEnter chosen index to insert at: ");
       scanf("%d", &index);
     } while (index < 0 || index > size());
 
@@ -164,7 +164,7 @@ void push_back() {
     temp = head;
     newnode = (struct node *)malloc(sizeof(struct node)); // creates a new node
 
-    printf("\n\n\t Enter data into the linked list: ");
+    printf("\n\n\t Enter data to push back into the linked list: ");
     scanf("%d", &newnode->data); // assign value to newnode->data
     while (temp->next != NULL)
     {
@@ -191,7 +191,7 @@ void push_front()
   struct node *newnode, *temp;
   newnode = (struct node *)malloc(sizeof(struct node)); // creates a new node
 
-  printf("\n\n\t Enter data into the linked list: ");
+  printf("\n\n\t Enter data to push onto the front of the linked list: ");
   scanf("%d", &newnode->data); // assign value to newnode->data
 
   // newnode->next = NULL; // no next node yet
