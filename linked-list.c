@@ -13,6 +13,51 @@ struct node *head;
 void push_front();
 void pop_front();
 
+void delete_first_occurrence()
+{
+  if (head == NULL)
+  {
+    printf("List is empty\n");
+  }
+  else
+  {
+    // this means list can't hold any negative numbers...
+    // can be improved by doing more stringent checks
+    int value = -1;
+    do
+    {
+      printf("\n\n\tEnter value to delete: ");
+      scanf("%d", &value);
+    } while (value < -1);
+
+
+    if (head->data == value)
+    {
+      pop_front();
+      printf("\n\n\tDelete successful\n");
+      return;
+    }
+
+    struct node *temp, *toBeFreed;
+    temp = head;
+
+    while (temp->next != NULL)
+    {
+      if (temp->next->data == value)
+      {
+        toBeFreed = temp->next;
+        temp->next = temp->next->next;
+        toBeFreed->next = NULL;
+        free(toBeFreed);
+        printf("\n\n\tDelete successful\n");
+        return;
+      }
+      temp = temp->next;
+    }
+    printf("Value %d not found\n", value);
+  }
+}
+
 void reverse()
 {
   if (head == NULL)
@@ -214,7 +259,7 @@ void value_n_from_end()
     scanf("%d", &index_from_end);
 
     int index_from_front = size() - 1 - index_from_end;
-    
+
     // value_at
 
     if (index_from_front >= 0 && index_from_front <= size())
@@ -264,11 +309,11 @@ void front()
 }
 
 void value_at()
-{ 
-  if (head == NULL) 
+{
+  if (head == NULL)
   {
     printf("List is empty.");
-  } 
+  }
   else
   {
     int index;
@@ -290,7 +335,7 @@ void value_at()
       printf("Index %d out of range", index);
     }
   }
-  
+
 }
 
 void is_empty()
@@ -321,7 +366,7 @@ int size()
     // printf("Size of linked list: %d\n", count);
     return count;
   }
-  
+
 }
 
 void display_address()
@@ -345,7 +390,7 @@ void display()
   else
   {
     printf("\n\n\t List is empty");
-  } 
+  }
 }
 
 int create_linked_list()
@@ -398,7 +443,8 @@ int main()
     printf("\n\n 14. Insert");
     printf("\n\n 15. Delete");
     printf("\n\n 16. Reverse");
-    printf("\n\n 17. Exit");
+    printf("\n\n 17. Delete first occurrence");
+    printf("\n\n 18. Exit");
     printf("\n\n Enter your choice: ");
     scanf("%d", &choice);
 
@@ -451,11 +497,15 @@ int main()
       break;
     case 16:
       reverse();
+      break;
     case 17:
+      delete_first_occurrence();
+      break;
+    case 18:
       break;
     default:
       printf("Invalid selection - try again.\n");
     }
-  } while (choice != 17);
-  
+  } while (choice != 18);
+
 }
