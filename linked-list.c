@@ -13,6 +13,28 @@ struct node *head;
 void push_front();
 void pop_front();
 
+int size()
+{
+  if (head == NULL)
+  {
+    return 0;
+  }
+  else
+  {
+    int count = 0;
+
+    struct node *temp;
+    temp = head;
+
+    for (temp = head; temp != NULL; temp = temp->next)
+    {
+      count++;
+    }
+    // printf("Size of linked list: %d\n", count);
+    return count;
+  }
+}
+
 void delete_first_occurrence()
 {
   if (head == NULL)
@@ -344,29 +366,6 @@ void is_empty()
 
   empty = (head == NULL);
   printf("%d", empty);
-}
-
-int size()
-{
-  if (head == NULL)
-  {
-    return 0;
-  }
-  else
-  {
-    int count = 0;
-
-    struct node *temp;
-    temp = head;
-
-    for (temp = head; temp != NULL; temp = temp->next)
-    {
-      count++;
-    }
-    // printf("Size of linked list: %d\n", count);
-    return count;
-  }
-
 }
 
 void display_address()
