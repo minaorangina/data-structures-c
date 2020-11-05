@@ -53,3 +53,33 @@ void insert(Node *parent, int data)
     insert(parent->right, data);
   }
 }
+
+Node* find(Node *parent, int value)
+{
+  if (parent->data == NULL)
+  {
+    // ain't nothing here
+    return NULL;
+  }
+  if (parent->data == value)
+  {
+    // gotcha
+    return parent;
+  }
+  if (parent->data > value)
+  {
+    if (parent->left != NULL)
+    {
+      return find(parent->left, value);
+    }
+  }
+  else if (parent->data < value)
+  {
+    if (parent->right != NULL)
+    {
+      return find(parent->right, value);
+    }
+  }
+
+  return NULL;
+}

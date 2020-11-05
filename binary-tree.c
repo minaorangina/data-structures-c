@@ -32,6 +32,19 @@ void add_to_tree(Node *root)
   insert(root, value);
 }
 
+Node* find_value(Node *root)
+{
+  if (root->data == NULL)
+  {
+    printf("  Tree is empty\n");
+  }
+  else
+  {
+    int value = value_from_stdin();
+    return find(root, value);
+  }
+}
+
 int main(void)
 {
   int choice;
@@ -41,6 +54,7 @@ int main(void)
   {
     printf("0: Print\n");
     printf("1: Insert\n");
+    printf("2. Find\n");
 
     printf("Enter your choice: ");
 
@@ -55,6 +69,19 @@ int main(void)
       case 1:
         printf("Inserting...\n");
         add_to_tree(root);
+        break;
+
+      case 2:
+        printf("Finding...\n");
+        Node *find_result = find_value(root);
+        if (find_result == NULL)
+        {
+          printf("  Value doesn't exist\n");
+        }
+        else
+        {
+          printf(" Found it!\n");
+        }
         break;
     }
 
