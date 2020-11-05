@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<stdbool.h>
 #include "lib-binary-tree.h"
 
 int QUIT_CMD = 9;
@@ -14,35 +15,34 @@ int value_from_stdin()
   return value;
 }
 
-void print(Node *root)
+bool tree_is_empty(Node *root)
 {
   if (root->data == NULL)
   {
     printf("  Tree is empty\n");
+    return true;
   }
-  else
-  {
-    print_in_order(root);
-  }
+  return false;
+}
+
+void print(Node *root)
+{
+  print_in_order(root);
 }
 
 void add_to_tree(Node *root)
 {
-  int value = value_from_stdin();
-  insert(root, value);
+  insert(root, value_from_stdin());
 }
 
 Node* find_value(Node *root)
 {
-  if (root->data == NULL)
-  {
-    printf("  Tree is empty\n");
-  }
-  else
-  {
-    int value = value_from_stdin();
-    return find(root, value);
-  }
+  return find(root, value_from_stdin());
+}
+
+void delete_value(Node *root)
+{
+  delete(root, value_from_stdin());
 }
 
 int main(void)
@@ -55,6 +55,7 @@ int main(void)
     printf("0: Print\n");
     printf("1: Insert\n");
     printf("2. Find\n");
+    printf("3: Delete\n");
 
     printf("Enter your choice: ");
 
@@ -62,8 +63,11 @@ int main(void)
 
     switch(choice) {
       case 0:
-        printf("Printing the binary tree...\n");
-        print(root);
+        if (!tree_is_empty(root))
+        {
+          printf("Printing the binary tree...\n");
+          print(root);
+        }
         break;
 
       case 1:
@@ -72,15 +76,27 @@ int main(void)
         break;
 
       case 2:
-        printf("Finding...\n");
-        Node *find_result = find_value(root);
-        if (find_result == NULL)
+        if (!tree_is_empty(root))
         {
-          printf("  Value doesn't exist\n");
+          printf("Finding...\n");
+
+          Node *find_result = find_value(root);
+          if (find_result == NULL)
+          {
+            printf("  Value doesn't exist\n");
+          }
+          else
+          {
+            printf(" Found it!\n");
+          }
         }
-        else
+        break;
+
+      case 3:
+        if (!tree_is_empty(root))
         {
-          printf(" Found it!\n");
+          printf("Deleting...\n");
+          delete_value(root);
         }
         break;
     }
