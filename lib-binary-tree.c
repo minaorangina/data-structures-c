@@ -18,11 +18,14 @@ void print_in_order(Node *parent)
 {
   if (parent->left != NULL)
   {
+    printf("Going left\n");
     print_in_order(parent->left);
   }
+  printf("a parent\n");
   printf("  %d\n", parent->data);
   if (parent->right != NULL)
   {
+    printf("Going right\n");
     print_in_order(parent->right);
   }
 }
@@ -138,16 +141,17 @@ Node *get_target(Node *target_parent, int value)
   return target_parent->right;
 }
 
-Node* find_leftmost_node(Node *node)
+// maybe return something that contains the successor and its parent
+Node* find_successor_node(Node *node, Node *parent)
 {
   if (node->left == NULL)
   {
-    return node;
+    return parent;
   }
-  return find_leftmost_node(node->left);
+  return find_successor_node(node->left, node);
 }
 
-    void delete (Node *root, int value)
+void delete (Node *root, int value)
 {
   Node *target_parent = find_parent(NULL, root, value);
 
@@ -178,23 +182,26 @@ Node* find_leftmost_node(Node *node)
   }
 
   // case 3
-  Node *leftmost = find_leftmost_node(target->right);
+  printf("FINDING SUCCESSOR\n");
+  Node *successor_parent = find_successor_node(target->right, target);
+  Node *successor = successor_parent->left;
   Node *temp = NULL;
-  if (target->data < target_parent->data)
-  {
-    temp = target_parent->left;
-    target_parent->left = leftmost;
+  // copy successor value to target
+  target->data = successor->data;
 
-    target_parent->left->left = temp->left;
-    target_parent->left->right = temp->right;
-  }
-  else
+  // case 1 deletion
+  if (successor->left == NULL && successor->right == NULL)
   {
-    temp = target_parent->right;
-    target_parent->right = leftmost;
-
-    target_parent->right->left = target->left;
-    target_parent->right->right = target->right;
+    return delete_no_children(successor_parent, successor);
   }
-  free(target);
+
+  // case 2 deletion
+  if (successor->left != NULL && successor->right == NULL) // left child
+  {
+    return delete_one_child(successor_parent, successor, successor->left);
+  }
+  else if (successor->left == NULL && successor->right != NULL) // right child
+  {
+    return delete_one_child(successor_parent, successor, successor->right);
+  }
 }
